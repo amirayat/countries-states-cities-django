@@ -72,8 +72,14 @@ MIDDLEWARE = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS.append("query_counter")
-    MIDDLEWARE.append("query_counter.middleware.DjangoQueryCounterMiddleware")
+    INSTALLED_APPS.extend([
+        "query_counter", 
+        "debug_toolbar"
+    ])
+    MIDDLEWARE.extend([
+        "query_counter.middleware.DjangoQueryCounterMiddleware",
+        "debug_toolbar.middleware.DebugToolbarMiddleware"
+    ])
 
 ROOT_URLCONF = 'core.urls'
 
@@ -168,3 +174,7 @@ REST_FRAMEWORK = {
 if DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append(
         "rest_framework.renderers.BrowsableAPIRenderer")
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

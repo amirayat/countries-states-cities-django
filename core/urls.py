@@ -54,3 +54,8 @@ urlpatterns += [
 # static file routes
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(r'^__debug__/', include('debug_toolbar.urls')),
+    ]
+
