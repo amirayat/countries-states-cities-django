@@ -111,5 +111,5 @@ class CountryWritableViewSet(ModelViewSet):
     pagination_class = LimitOffsetPagination
     permission_classes = (AllowAny,)
     serializer_class = CountryNestedModelSerializer
-    queryset = Country.objects.prefetch_related('country_state')
+    queryset = Country.objects.prefetch_related('country_state__state_city')
 
