@@ -29,11 +29,6 @@ class StateListViewSet(ReadOnlyModelViewSet):
         queryset = self.filter_queryset(
             self.get_queryset().filter(country_id=country_pk))
 
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -58,11 +53,6 @@ class CityListViewSet(ReadOnlyModelViewSet):
     def list(self, request, country_pk=None, state_pk=None):
         queryset = self.filter_queryset(self.get_queryset().filter(
             country_id=country_pk, state_id=state_pk))
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
