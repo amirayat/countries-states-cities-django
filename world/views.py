@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from world.serializers import CountryModelSerializer, StateModelSerializer, CityModelSerializer
 from world.models import Country, State, City
 
@@ -10,7 +10,7 @@ class CountryListViewSet(ReadOnlyModelViewSet):
     list of countries
     """
     pagination_class = None
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     serializer_class = CountryModelSerializer
     queryset = Country.objects.all()
 
@@ -20,7 +20,7 @@ class StateListViewSet(ReadOnlyModelViewSet):
     list of states for a country
     """
     pagination_class = None
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     serializer_class = StateModelSerializer
     queryset = State.objects.all()
 
@@ -47,7 +47,7 @@ class CityListViewSet(ReadOnlyModelViewSet):
     list of cities for a state
     """
     pagination_class = None
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     serializer_class = CityModelSerializer
     queryset = City.objects.all()
 
