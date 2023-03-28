@@ -5,7 +5,7 @@ from rest_framework.exceptions import NotFound
 from rest_framework.pagination import LimitOffsetPagination
 from rest_flex_fields import is_expanded
 from world.models import Country, State, City
-from world.serializers import CityFlexSerializer, CountryModelSerializer, StateFlexSerializer, StateModelSerializer, CityModelSerializer
+from world.serializers import CityFlexSerializer, CountryModelSerializer, CountryNestedModelSerializer, StateFlexSerializer, StateModelSerializer, CityModelSerializer
 
 
 class CountryListViewSet(ReadOnlyModelViewSet):
@@ -102,4 +102,14 @@ class CityFlexViewSet(ModelViewSet):
         if is_expanded(self.request, 'state'):
             queryset = queryset.select_related('state')
         return queryset
+
+
+class CountryWritableViewSet(ModelViewSet):
+    """
+    list of counties and their states and cities
+    """
+    pagination_class = LimitOffsetPagination
+    permission_classes = (AllowAny,)
+    serializer_class = CountryNestedModelSerializer
+    queryset = Country.objects.prefetch_related('country_state')
 
