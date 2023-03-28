@@ -38,7 +38,7 @@ schema_view = get_schema_view(
 # project routes
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('world/', include("addresses.urls")),
+    path('world/', include("world.urls")),
 ]
 
 # swagger routes
