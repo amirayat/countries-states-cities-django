@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny
+from rest_framework.exceptions import NotFound
 from world.serializers import CountryModelSerializer, StateModelSerializer, CityModelSerializer
 from world.models import Country, State, City
 
@@ -37,7 +38,10 @@ class StateListViewSet(ReadOnlyModelViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None, country_pk=None):
-        instance = self.get_queryset().filter(country_id=country_pk).get(pk=pk)
+        try:
+            instance = self.get_queryset().filter(country_id=country_pk).get(pk=pk)
+        except:
+            raise NotFound
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
@@ -64,7 +68,10 @@ class CityListViewSet(ReadOnlyModelViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None, country_pk=None, state_pk=None):
-        instance = self.get_queryset().filter(
-            country_id=country_pk, state_id=state_pk).get(pk=pk)
+        try:
+            instance = self.get_queryset().filter(
+                country_id=country_pk, state_id=state_pk).get(pk=pk)
+        except:
+            raise NotFound
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
