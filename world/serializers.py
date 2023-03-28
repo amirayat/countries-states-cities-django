@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
-from world.models import Country,State,City
+from rest_flex_fields import FlexFieldsModelSerializer
+from world.models import Country, State, City
 
 
 class CityModelSerializer(ModelSerializer):
@@ -20,7 +21,7 @@ class StateModelSerializer(ModelSerializer):
     class Meta:
         model = State
         fields = '__all__'
-    
+
 
 class CountryModelSerializer(ModelSerializer):
     """
@@ -31,5 +32,29 @@ class CountryModelSerializer(ModelSerializer):
         model = Country
         fields = '__all__'
 
-        
 
+class StateFlexSerializer(FlexFieldsModelSerializer):
+    """
+    flex serializer for states
+    """
+
+    class Meta:
+        model = State
+        fields = '__all__'
+        expandable_fields = {
+            'country': CountryModelSerializer
+        }
+
+
+class CityFlexSerializer(FlexFieldsModelSerializer):
+    """
+    flex serializer for cities
+    """
+
+    class Meta:
+        model = City
+        fields = '__all__'
+        expandable_fields = {
+            'state': StateModelSerializer,
+            'country': CountryModelSerializer
+        }
