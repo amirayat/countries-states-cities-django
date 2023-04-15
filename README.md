@@ -2,3 +2,6 @@
 
 ## About Project
 Introducing REST API for Countries States Cities Database using django rest framework.
+
+### Full documentaion
+[link](https://medium.com/@amirayat20/useful-packages-to-have-nested-serializers-in-django-rest-f8f7d26f25a1)
